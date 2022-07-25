@@ -29,7 +29,7 @@ const Products = () => {
   ];
 
   return (
-    <main className="mt-6">
+    <main className="mt-20">
       <div className="flex flex-wrap w-11/12 m-auto items-center justify-center gap-4">
         {products.map((product) => {
           return <ProductCard key={product.id} product={product} />;
