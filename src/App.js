@@ -21,7 +21,7 @@ function App() {
     <Router>
       <div className=" max-w-[1440px] m-auto">
         <Routes>
-          <Route path="/" element={<Products />} />
+          <Route path="/" element={<Products products={products} />} />
           <Route path="/cart" element={<Cart />} />
         </Routes>
       </div>
