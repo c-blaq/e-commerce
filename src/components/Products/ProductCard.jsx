@@ -19,8 +19,9 @@ const ProductCard = ({ product }) => {
           className="text-gray-600 my-4 block"
           dangerouslySetInnerHTML={{ __html: product.description }}
         />
-
-        <MdOutlineAddShoppingCart className="block ml-auto" />
+        <button className="block ml-auto hover:bg-gray-200 rounded-full p-2">
+          <MdOutlineAddShoppingCart />
+        </button>
       </div>
     </div>
   );
