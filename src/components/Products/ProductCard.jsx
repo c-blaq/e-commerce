@@ -1,7 +1,7 @@
 import React from "react";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, onAddToCart }) => {
   return (
     <div className="bg-white shadow w-full sm:w-2/5 lg:w-1/4 shrink-0">
       <img
@@ -19,7 +19,11 @@ const ProductCard = ({ product }) => {
           className="text-gray-600 my-4 block"
           dangerouslySetInnerHTML={{ __html: product.description }}
         />
-        <button className="block ml-auto hover:bg-gray-200 rounded-full p-2">
+        <button
+          aria-label="add to cart"
+          className="block ml-auto hover:bg-gray-200 rounded-full p-2"
+          onClick={() => onAddToCart(product.id, 1)}
+        >
           <MdOutlineAddShoppingCart />
         </button>
       </div>
