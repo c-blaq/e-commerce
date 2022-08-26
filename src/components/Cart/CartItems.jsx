@@ -20,7 +20,8 @@ const CartItems = ({ item }) => {
 
         <div className="flex item-center justify-between mt-4">
           <div>
-            <span className="mr-2">-</span>10
+            <span className="mr-2">-</span>
+            {item.quantity}
             <span className="ml-2">+</span>
           </div>
           <button className="text-white text-xs uppercase bg-red-500 rounded p-2">

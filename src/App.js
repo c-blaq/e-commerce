@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { commerce } from "./lib/commerce";
 import Cart from "./components/Cart/Cart";
 import Products from "./components/Products/Products";
+import Header from "./components/Header/Header";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -29,15 +30,12 @@ function App() {
   return (
     <Router>
       <div className=" max-w-[1440px] m-auto">
+        <Header totalCartItems={cart.total_items} />
         <Routes>
           <Route
             path="/"
             element={
-              <Products
-                products={products}
-                totalCartItems={cart.total_items}
-                onAddToCart={handleAddToCart}
-              />
+              <Products products={products} onAddToCart={handleAddToCart} />
             }
           />
           <Route path="/cart" element={<Cart cart={cart} />} />

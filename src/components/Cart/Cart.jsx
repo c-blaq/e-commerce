@@ -7,7 +7,6 @@ const Cart = ({ cart }) => {
 
   return (
     <>
-      <Header />
       <main className="mt-20">
         {!cart.line_items.length ? (
           <p className="text-2xl m-4">No cart added!</p>
