@@ -9,11 +9,11 @@ const CartItems = ({ item }) => {
       <img
         src={item.image.url}
         alt={item.name}
-        className=" max-h-52 block w-full object-cover"
+        className=" h-48 sm:h-52 max-h-52 block w-full object-cover"
       />
 
       <div className="p-2">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between flex-wrap items-center gap-2">
           <span className="sm:text-lg">{item.name}</span>
           <span>{item.line_total.formatted_with_symbol}</span>
         </div>
