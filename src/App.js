@@ -40,7 +40,7 @@ function App() {
               />
             }
           />
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/cart" element={<Cart cart={cart} />} />
         </Routes>
       </div>
     </Router>
