@@ -1,8 +1,7 @@
 import React from "react";
-import Header from "../Header/Header";
 import CartItems from "./CartItems";
 
-const Cart = ({ cart }) => {
+const Cart = ({ cart, onUpdateCartQty, onRemoveFromCart, onEmptyCart }) => {
   if (!cart.line_items) return "Loading";
 
   return (
@@ -17,7 +16,12 @@ const Cart = ({ cart }) => {
             </h1>
             <div className="flex flex-wrap w-full m-auto item-center justify-center gap-4">
               {cart.line_items.map((item) => (
-                <CartItems item={item} />
+                <CartItems
+                  item={item}
+                  key={item.id}
+                  onRemoveFromCart={onRemoveFromCart}
+                  onUpdateCartQty={onUpdateCartQty}
+                />
               ))}
             </div>
           </div>
@@ -30,7 +34,10 @@ const Cart = ({ cart }) => {
             </p>
           </div>
           <div>
-            <button className="text-white text-xs uppercase bg-red-500 rounded p-2">
+            <button
+              className="text-white text-xs uppercase bg-red-500 rounded p-2"
+              onClick={onEmptyCart}
+            >
               Empty Cart
             </button>
             <button className="text-white ml-2 text-xs uppercase bg-blue-600 rounded p-2">

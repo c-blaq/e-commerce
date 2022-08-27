@@ -1,11 +1,8 @@
 import React from "react";
 
-const CartItems = ({ item }) => {
+const CartItems = ({ item, onUpdateCartQty, onRemoveFromCart }) => {
   return (
-    <div
-      key={item.id}
-      className="bg-white shadow  w-full sm:w-2/5 lg:w-1/4 shrink-0"
-    >
+    <div className="bg-white shadow  w-full sm:w-2/5 lg:w-1/4 shrink-0">
       <img
         src={item.image.url}
         alt={item.name}
@@ -22,15 +19,24 @@ const CartItems = ({ item }) => {
 
         <div className="flex item-center justify-between mt-4">
           <div>
-            <span className="mr-2 hover:bg-gray-200 cursor-pointer rounded-full p-2 w-5 h-5 inline-flex items-center justify-center">
+            <span
+              className="mr-2 hover:bg-gray-200 cursor-pointer rounded-full p-2 w-5 h-5 inline-flex items-center justify-center"
+              onClick={() => onUpdateCartQty(item.id, item.quantity - 1)}
+            >
               -
             </span>
             {item.quantity}
-            <span className="ml-2 hover:bg-gray-200 cursor-pointer rounded-full p-2 w-5 h-5 inline-flex items-center justify-center">
+            <span
+              className="ml-2 hover:bg-gray-200 cursor-pointer rounded-full p-2 w-5 h-5 inline-flex items-center justify-center"
+              onClick={() => onUpdateCartQty(item.id, item.quantity + 1)}
+            >
               +
             </span>
           </div>
-          <button className="text-white text-xs uppercase bg-red-500 rounded p-2">
+          <button
+            className="text-white text-xs uppercase bg-red-500 rounded p-2"
+            onClick={() => onRemoveFromCart(item.id)}
+          >
             remove
           </button>
         </div>
