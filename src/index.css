@@ -18,9 +18,10 @@ code {
 }
 
 @layer components {
-  .test {
-    @apply first-of-type:flex-1 last-of-type:flex-shrink-0 first-of-type:flex first-of-type:items-center first-of-type:gap-2 first-of-type:after:flex-1
-     before:bg-blue-700 before:rounded-full before:inline-flex before:p-3 before:text-white before:items-center before:justify-center before:content-['1'] before:w-4 before:h-4 before:relative after:w-32 after:border-t-2
-      after:border-gray-300 after:inline-block last-of-type:after:w-0 last-of-type:before:mr-2;
+  .test,
+  .test span {
+    @apply disabled:before:bg-gray-400 first-of-type:flex-1 last-of-type:flex-shrink-0 flex items-center first-of-type:gap-2 first-of-type:after:flex-1
+     before:bg-blue-700 before:rounded-full before:inline-flex before:p-3 before:text-white before:items-center before:justify-center before:w-4 before:h-4 before:relative after:w-32 after:border-t-2
+      after:border-gray-300 after:inline-block last-of-type:after:w-0 last-of-type:before:mr-2 items-center;
   }
 }
