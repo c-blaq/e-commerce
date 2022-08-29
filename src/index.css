@@ -18,10 +18,15 @@ code {
 }
 
 @layer components {
-  .test,
-  .test span {
+  .test {
     @apply disabled:before:bg-gray-400 first-of-type:flex-1 last-of-type:flex-shrink-0 flex items-center first-of-type:gap-2 first-of-type:after:flex-1
      before:bg-blue-700 before:rounded-full before:inline-flex before:p-3 before:text-white before:items-center before:justify-center before:w-4 before:h-4 before:relative after:w-32 after:border-t-2
       after:border-gray-300 after:inline-block last-of-type:after:w-0 last-of-type:before:mr-2 items-center;
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 }
