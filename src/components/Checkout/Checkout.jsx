@@ -1,9 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ShippingAddress from "./AddressForm";
+import { commerce } from "../../lib/commerce";
+import { type } from "@testing-library/user-event/dist/type";
 
-const Checkout = () => {
+const Checkout = ({ cart }) => {
   const steps = ["Shipping Address", "Payment details"];
   const [activeStep, setActiveStep] = useState(0);
+  const [checkoutToken, setcheckoutToken] = useState("");
+
+  useEffect(() => {
+    const generateToken = async () => {
+      try {
+        const token = await commerce.checkout.generateToken(cart.id, {
+          type: "cart",
+        });
+
+        console.log(token);
+        setcheckoutToken(token);
+      } catch (error) {
+        console.log("Something went wrong");
+      }
+    };
+
+    generateToken();
+  }, []);
 
   const Form = () => activeStep == 0 && <ShippingAddress />;
 
@@ -13,12 +33,12 @@ const Checkout = () => {
         <h2 className="text-center text-xl">Checkout</h2>
         <div className="flex gap-2 items-center">
           {steps.map((step, index) => (
-            <button className="test" disabled={index > activeStep}>
+            <button key={index} className="test" disabled={index > activeStep}>
               {step}
             </button>
           ))}
         </div>
-        {activeStep === steps.length ? <p>LAst</p> : <Form />}
+        {activeStep === steps.length ? <p>LAst</p> : checkoutToken && <Form />}
       </div>
     </div>
   );
