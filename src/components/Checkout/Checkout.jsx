@@ -15,17 +15,15 @@ const Checkout = ({ cart }) => {
           type: "cart",
         });
 
-        console.log(token);
         setcheckoutToken(token);
-      } catch (error) {
-        console.log("Something went wrong");
-      }
+      } catch (error) {}
     };
 
     generateToken();
-  }, []);
+  }, [cart]);
 
-  const Form = () => activeStep == 0 && <ShippingAddress />;
+  const Form = () =>
+    activeStep == 0 && <ShippingAddress checkoutToken={checkoutToken} />;
 
   return (
     <div className=" mt-16 min-h-[500px] justify-center flex flex-col items-center">
