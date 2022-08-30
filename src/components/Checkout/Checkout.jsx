@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import ShippingAddress from "./AddressForm";
 import { commerce } from "../../lib/commerce";
 import { type } from "@testing-library/user-event/dist/type";
+import PaymentForm from "./PaymentForm";
 
 const Checkout = ({ cart }) => {
   const steps = ["Shipping Address", "Payment details"];
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeStep, setActiveStep] = useState(1);
   const [checkoutToken, setcheckoutToken] = useState("");
 
   useEffect(() => {
@@ -23,7 +24,11 @@ const Checkout = ({ cart }) => {
   }, [cart]);
 
   const Form = () =>
-    activeStep == 0 && <ShippingAddress checkoutToken={checkoutToken} />;
+    activeStep === 0 ? (
+      <ShippingAddress checkoutToken={checkoutToken} />
+    ) : (
+      <PaymentForm checkoutToken={checkoutToken} />
+    );
 
   return (
     <div className=" mt-16 min-h-[500px] justify-center flex flex-col items-center">
