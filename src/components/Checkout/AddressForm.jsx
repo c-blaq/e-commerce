@@ -8,6 +8,8 @@ const ShippingAddress = ({ checkoutToken }) => {
   const [shippingCountry, setShippingCountry] = useState("");
   const [shipppingSubdivisions, setShipppingSubdivisions] = useState([]);
   const [shipppingSubdivision, setShipppingSubdivision] = useState("");
+  const [shippingOptions, setShippingOptions] = useState([]);
+  const [shippingOption, setShippingOption] = useState("");
 
   const countries = Object.entries(shippingCountries).map(([key, value]) => ({
     id: key,
@@ -19,6 +21,10 @@ const ShippingAddress = ({ checkoutToken }) => {
       name: value,
     })
   );
+  const options = shippingOptions.map((option) => ({
+    id: option.id,
+    name: `${option.description} - (${option.price.formatted_with_symbol})`,
+  }));
 
   const fetchshippingCountries = async (checkoutTokedId) => {
     const { countries } = await commerce.services.localeListShippingCountries(
@@ -38,6 +44,20 @@ const ShippingAddress = ({ checkoutToken }) => {
     setShipppingSubdivision(Object.keys(subdivisions)[0]);
   };
 
+  const fetchShippingOptions = async (
+    checkoutTokedId,
+    country,
+    region = null
+  ) => {
+    const options = await commerce.checkout.getShippingOptions(
+      checkoutTokedId,
+      { country, region }
+    );
+
+    setShippingOptions(options);
+    setShippingOption(options[0].id);
+  };
+
   useEffect(() => {
     fetchshippingCountries(checkoutToken.id);
   }, []);
@@ -47,6 +67,16 @@ const ShippingAddress = ({ checkoutToken }) => {
       fetchShippingSubdivisions(shippingCountry);
     }
   }, [shippingCountry]);
+
+  useEffect(() => {
+    if (shipppingSubdivision) {
+      fetchShippingOptions(
+        checkoutToken.id,
+        shippingCountry,
+        shipppingSubdivision
+      );
+    }
+  }, [shipppingSubdivision]);
 
   const methods = useForm();
   return (
@@ -82,6 +112,18 @@ const ShippingAddress = ({ checkoutToken }) => {
             onChange={(e) => setShipppingSubdivision(e.target.value)}
           >
             {subdivisions.map(({ id, name }) => (
+              <option key={id} value={id}>
+                {name}
+              </option>
+            ))}
+          </select>
+
+          <select
+            className="border-b-2 block w-[48%] outline-none py-1 border-b-gray-300 hover:border-b-gray-500"
+            value={shippingOption}
+            onChange={(e) => setShippingOption(e.target.value)}
+          >
+            {options.map(({ id, name }) => (
               <option key={id} value={id}>
                 {name}
               </option>
