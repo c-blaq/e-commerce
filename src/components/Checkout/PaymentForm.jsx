@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import Review from "./Review";
 import PaystackPop from "@paystack/inline-js";
 
-const PaymentForm = ({ checkoutToken }) => {
+const PaymentForm = ({ checkoutToken, backStep }) => {
   const [email, setEmail] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const componentProps = {
     email,
     amount: checkoutToken.subtotal.raw * 100,
     key: process.env.REACT_APP_PAYSTACK_PUBLIC_KEY,
     onSuccess: () =>
-      console.log("Thanks for doing business with us! Come back soon!!"),
+      setSuccessMessage("Thanks for doing business with us! Come back soon!!"),
     onError: (e) => console.log(e),
     onClose: () => console.log("Wait! You need this oil, don't go!!!!"),
   };
@@ -32,8 +33,11 @@ const PaymentForm = ({ checkoutToken }) => {
             required
           />
           <div className="flex justify-between mt-8">
-            <button className="uppercase border-slate-300 border rounded shadow py-2 px-4">
-              back to cart
+            <button
+              className="uppercase border-slate-300 border rounded shadow py-2 px-4"
+              onClick={backStep}
+            >
+              back
             </button>
 
             <button

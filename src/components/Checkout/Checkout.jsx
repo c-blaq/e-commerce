@@ -5,8 +5,9 @@ import PaymentForm from "./PaymentForm";
 
 const Checkout = ({ cart }) => {
   const steps = ["Shipping Address", "Payment details"];
-  const [activeStep, setActiveStep] = useState(1);
-  const [checkoutToken, setcheckoutToken] = useState("");
+  const [activeStep, setActiveStep] = useState(0);
+  const [checkoutToken, setcheckoutToken] = useState(null);
+  const [shippingData, setShippingData] = useState({});
 
   useEffect(() => {
     const generateToken = async () => {
@@ -22,11 +23,26 @@ const Checkout = ({ cart }) => {
     generateToken();
   }, [cart]);
 
+  const nextStep = (prevStep) => setActiveStep(prevStep + 1);
+  const backStep = (prevStep) => {
+    setActiveStep(prevStep - 1);
+    console.log("clciked");
+  };
+
+  const goToNext = (data) => {
+    setShippingData(data);
+    nextStep();
+  };
+
   const Form = () =>
     activeStep === 0 ? (
-      <ShippingAddress checkoutToken={checkoutToken} />
+      <ShippingAddress checkoutToken={checkoutToken} goToNext={goToNext} />
     ) : (
-      <PaymentForm checkoutToken={checkoutToken} />
+      <PaymentForm
+        checkoutToken={checkoutToken}
+        shippingData={shippingData}
+        backStep={backStep}
+      />
     );
 
   return (
@@ -40,7 +56,7 @@ const Checkout = ({ cart }) => {
             </button>
           ))}
         </div>
-        {activeStep === steps.length ? <p>LAst</p> : checkoutToken && <Form />}
+        {activeStep === steps.length ? <p>Last</p> : checkoutToken && <Form />}
       </div>
     </div>
   );

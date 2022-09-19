@@ -4,7 +4,7 @@ import FormInput from "./FormInput";
 import { commerce } from "../../lib/commerce";
 import { Link } from "react-router-dom";
 
-const ShippingAddress = ({ checkoutToken }) => {
+const ShippingAddress = ({ checkoutToken, goToNext }) => {
   const [shippingCountries, setShippingCountries] = useState([]);
   const [shippingCountry, setShippingCountry] = useState("");
   const [shipppingSubdivisions, setShipppingSubdivisions] = useState([]);
@@ -83,8 +83,18 @@ const ShippingAddress = ({ checkoutToken }) => {
   return (
     <div className="mt-8">
       <h2 className="text-2xl mb-3">Shipping Address</h2>
-      <FormProvider {...methods}>
-        <form className="w-full">
+      <FormProvider {...methods.handleSubmit}>
+        <form
+          className="w-full"
+          onSubmit={(data) =>
+            goToNext({
+              ...data,
+              shippingCountry,
+              shipppingSubdivision,
+              shippingOption,
+            })
+          }
+        >
           <div className="flex flex-wrap justify-between gap-4 items-center ">
             <FormInput
               type="text"
