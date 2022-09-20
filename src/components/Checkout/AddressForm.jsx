@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useForm, FormProvider } from "react-hook-form";
-import FormInput from "./FormInput";
+import { useForm } from "react-hook-form";
 import { commerce } from "../../lib/commerce";
 import { Link } from "react-router-dom";
 
@@ -79,87 +78,101 @@ const ShippingAddress = ({ checkoutToken, goToNext }) => {
     }
   }, [shipppingSubdivision]);
 
-  const methods = useForm();
+  const { register, handleSubmit } = useForm();
   return (
     <div className="mt-8">
       <h2 className="text-2xl mb-3">Shipping Address</h2>
-      <FormProvider {...methods.handleSubmit}>
-        <form
-          className="w-full"
-          onSubmit={(data) =>
-            goToNext({
-              ...data,
-              shippingCountry,
-              shipppingSubdivision,
-              shippingOption,
-            })
-          }
-        >
-          <div className="flex flex-wrap justify-between gap-4 items-center ">
-            <FormInput
-              type="text"
-              name="First name"
-              placeholder="First name*"
-            />
-            <FormInput type="text" name="Last name" placeholder="Last name*" />
-            <FormInput type="text" name="Address" placeholder="Address*" />
-            <FormInput type="email" name="Email" placeholder="Email*" />
-            <FormInput type="text" name="City" placeholder="City*" />
-            <FormInput
-              type="number"
-              name="ZIP / Postal code"
-              placeholder="ZIP / Postal code*"
-            />
-            <select
-              className="border-b-2 bg-transparent block w-[48%] outline-none py-1 border-b-gray-300 hover:border-b-gray-500"
-              value={shippingCountry}
-              onChange={(e) => setShippingCountry(e.target.value)}
-            >
-              {countries.map(({ id, name }) => (
-                <option key={id} value={id}>
-                  {name}
-                </option>
-              ))}
-            </select>
-            <select
-              className="border-b-2 bg-transparent block w-[48%] outline-none py-1 border-b-gray-300 hover:border-b-gray-500"
-              value={shipppingSubdivision}
-              onChange={(e) => setShipppingSubdivision(e.target.value)}
-            >
-              {subdivisions.map(({ id, name }) => (
-                <option key={id} value={id}>
-                  {name}
-                </option>
-              ))}
-            </select>
-            <select
-              className="border-b-2 bg-transparent block w-[48%] outline-none py-1 border-b-gray-300 hover:border-b-gray-500"
-              value={shippingOption}
-              onChange={(e) => setShippingOption(e.target.value)}
-            >
-              {options.map(({ id, name }) => (
-                <option key={id} value={id}>
-                  {name}
-                </option>
-              ))}
-            </select>
-          </div>
 
-          <div className="flex justify-between mt-4">
-            <Link to="/cart">
-              <button className="uppercase border-slate-300 border rounded shadow py-2 px-4">
-                back to cart
-              </button>
-            </Link>
-            <button
-              type="submit"
-              className="bg-blue-800 uppercase py-2 rounded text-white px-4"
-            >
-              next
+      <form
+        className="w-full"
+        onSubmit={handleSubmit((data) => console.log(data))}
+      >
+        <div className="flex flex-wrap justify-between gap-4 items-center ">
+          <input
+            type="text"
+            {...register("firstName")}
+            className="form-input"
+            placeholder="First name*"
+          />
+          <input
+            type="text"
+            {...register("lastName")}
+            className="form-input"
+            placeholder="Last name*"
+          />
+          <input
+            type="text"
+            {...register("address")}
+            className="form-input"
+            placeholder="Address*"
+          />
+          <input
+            type="email"
+            {...register("email")}
+            className="form-input"
+            placeholder="Email*"
+          />
+          <input
+            type="text"
+            {...register("city")}
+            className="form-input"
+            placeholder="City*"
+          />
+          <input
+            type="number"
+            {...register("zip")}
+            className="form-input"
+            placeholder="ZIP / Postal code*"
+          />
+          <select
+            {...register("shippingCountry")}
+            className="border-b-2 bg-transparent block w-[48%] outline-none py-1 border-b-gray-300 hover:border-b-gray-500"
+            onChange={(e) => setShippingCountry(e.target.value)}
+          >
+            {countries.map(({ id, name }) => (
+              <option key={id} value={id}>
+                {name}
+              </option>
+            ))}
+          </select>
+          <select
+            {...register("shippingSubdivision")}
+            className="border-b-2 bg-transparent block w-[48%] outline-none py-1 border-b-gray-300 hover:border-b-gray-500"
+            onChange={(e) => setShipppingSubdivision(e.target.value)}
+          >
+            {subdivisions.map(({ id, name }) => (
+              <option key={id} value={id}>
+                {name}
+              </option>
+            ))}
+          </select>
+          <select
+            {...register("shippingOption")}
+            className="border-b-2 bg-transparent block w-[48%] outline-none py-1 border-b-gray-300 hover:border-b-gray-500"
+            onChange={(e) => setShippingOption(e.target.value)}
+          >
+            {options.map(({ id, name }) => (
+              <option key={id} value={id}>
+                {name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="flex justify-between mt-4">
+          <Link to="/cart">
+            <button className="uppercase border-slate-300 border rounded shadow py-2 px-4">
+              back to cart
             </button>
-          </div>
-        </form>
-      </FormProvider>
+          </Link>
+          <button
+            type="submit"
+            className="bg-blue-800 uppercase py-2 rounded text-white px-4"
+          >
+            next
+          </button>
+        </div>
+      </form>
     </div>
   );
 };
