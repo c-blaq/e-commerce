@@ -85,7 +85,11 @@ const ShippingAddress = ({ checkoutToken, goToNext }) => {
 
       <form
         className="w-full"
-        onSubmit={handleSubmit((data) => console.log(data))}
+        onSubmit={handleSubmit((data) =>
+          goToNext({
+            ...data,
+          })
+        )}
       >
         <div className="flex flex-wrap justify-between gap-4 items-center ">
           <input
