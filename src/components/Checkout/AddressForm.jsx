@@ -60,6 +60,7 @@ const ShippingAddress = ({ checkoutToken, goToNext }) => {
 
   useEffect(() => {
     fetchshippingCountries(checkoutToken.id);
+    //eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -76,6 +77,7 @@ const ShippingAddress = ({ checkoutToken, goToNext }) => {
         shipppingSubdivision
       );
     }
+    //eslint-disable-next-line
   }, [shipppingSubdivision]);
 
   const { register, handleSubmit } = useForm();
