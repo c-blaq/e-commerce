@@ -59,28 +59,33 @@ const PaymentForm = ({
 
         <form>
           <input
-            className="border-b-2 block w-[48%] outline-none py-1 border-b-gray-300 hover:border-b-gray-500"
+            className="border-b-2 block w-full sm:w-[48%] outline-none py-1 border-b-gray-300 hover:border-b-gray-500"
             type="email"
             placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
           />
-          <input type="hidden" id="paystackReference" />
+          <input
+            type="hidden"
+            id="paystackReference"
+            name="paystackReference"
+          />
           <div className="flex justify-between mt-8">
             <button
-              className="uppercase border-slate-300 border rounded shadow py-2 px-4"
+              className="uppercase text-xs sm:text-base border-slate-300 border rounded shadow py-2 px-4"
               onClick={backStep}
             >
               back
             </button>
 
             <button
-              className="bg-blue-800 uppercase py-2 rounded text-white px-4 disabled:opacity-70 disabled:cursor-not-allowed"
+              className="bg-blue-800 text-xs sm:text-base uppercase py-2 rounded text-white px-4 disabled:opacity-70 disabled:cursor-not-allowed"
               type="button"
               onClick={() => {
                 const paystack = new PaystackPop();
                 paystack.newTransaction(componentProps);
                 handleSubmit();
               }}
+              disabled={!email}
             >
               Pay {checkoutToken.subtotal.formatted_with_symbol}
             </button>

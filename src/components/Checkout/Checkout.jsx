@@ -47,12 +47,16 @@ const Checkout = ({ cart, onCaptureCheckout, order, error }) => {
     );
 
   return (
-    <div className=" mt-16 min-h-[600px] justify-center flex flex-col items-center">
-      <div className="bg-white rounded shadow-sm w-2/3 p-4 max-w-2xl">
+    <div className=" mt-20 lg:mt-16 min-h-[600px] justify-center flex flex-col items-center">
+      <div className="bg-white rounded w-11/12 shadow-sm lg:w-2/3 p-4 max-w-2xl">
         <h2 className="text-center text-xl">Checkout</h2>
         <div className="flex gap-2 items-center">
           {steps.map((step, index) => (
-            <button key={index} className="test" disabled={index > activeStep}>
+            <button
+              key={index}
+              className="test text-sm sm:text-base"
+              disabled={index > activeStep}
+            >
               {step}
             </button>
           ))}

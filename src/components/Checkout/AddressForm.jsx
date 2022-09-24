@@ -81,7 +81,7 @@ const ShippingAddress = ({ checkoutToken, goToNext }) => {
   const { register, handleSubmit } = useForm();
   return (
     <div className="mt-8">
-      <h2 className="text-2xl mb-3">Shipping Address</h2>
+      <h2 className="text-xl sm:text-2xl mb-3">Shipping Address</h2>
 
       <form
         className="w-full"
@@ -98,42 +98,42 @@ const ShippingAddress = ({ checkoutToken, goToNext }) => {
           <input
             type="text"
             {...register("firstName")}
-            className="form-input"
+            className="form-input text-sm sm:text-base"
             placeholder="First name*"
           />
           <input
             type="text"
             {...register("lastName")}
-            className="form-input"
+            className="form-input text-sm sm:text-base"
             placeholder="Last name*"
           />
           <input
             type="text"
             {...register("address")}
-            className="form-input"
+            className="form-input text-sm sm:text-base"
             placeholder="Address*"
           />
           <input
             type="email"
             {...register("email")}
-            className="form-input"
+            className="form-input text-sm sm:text-base"
             placeholder="Email*"
           />
           <input
             type="text"
             {...register("city")}
-            className="form-input"
+            className="form-input text-sm sm:text-base"
             placeholder="City*"
           />
           <input
             type="number"
             {...register("zip")}
-            className="form-input"
+            className="form-input text-sm sm:text-base"
             placeholder="ZIP / Postal code*"
           />
           <select
             {...register("shippingCountry")}
-            className="border-b-2 bg-transparent block w-[48%] outline-none py-1 border-b-gray-300 hover:border-b-gray-500"
+            className="border-b-2 bg-transparent block w-full sm:w-[48%] outline-none py-1 border-b-gray-300 hover:border-b-gray-500"
             onChange={(e) => setShippingCountry(e.target.value)}
           >
             {countries.map(({ id, name }) => (
@@ -144,7 +144,7 @@ const ShippingAddress = ({ checkoutToken, goToNext }) => {
           </select>
           <select
             {...register("shippingSubdivision")}
-            className="border-b-2 bg-transparent block w-[48%] outline-none py-1 border-b-gray-300 hover:border-b-gray-500"
+            className="border-b-2 bg-transparent block w-full sm:w-[48%] outline-none py-1 border-b-gray-300 hover:border-b-gray-500"
             onChange={(e) => setShipppingSubdivision(e.target.value)}
           >
             {subdivisions.map(({ id, name }) => (
@@ -155,7 +155,7 @@ const ShippingAddress = ({ checkoutToken, goToNext }) => {
           </select>
           <select
             {...register("shippingOption")}
-            className="border-b-2 bg-transparent block w-[48%] outline-none py-1 border-b-gray-300 hover:border-b-gray-500"
+            className="border-b-2 bg-transparent block w-full sm:w-[48%] outline-none py-1 border-b-gray-300 hover:border-b-gray-500"
             onChange={(e) => setShippingOption(e.target.value)}
           >
             {options.map(({ id, name }) => (
@@ -168,13 +168,13 @@ const ShippingAddress = ({ checkoutToken, goToNext }) => {
 
         <div className="flex justify-between mt-4">
           <Link to="/cart">
-            <button className="uppercase border-slate-300 border rounded shadow py-2 px-4">
+            <button className="uppercase text-xs sm:text-base border-slate-300 border rounded shadow py-2 px-4">
               back to cart
             </button>
           </Link>
           <button
             type="submit"
-            className="bg-blue-800 uppercase py-2 rounded text-white px-4"
+            className="bg-blue-800 text-xs sm:text-base uppercase py-2 rounded text-white px-4"
           >
             next
           </button>

@@ -19,12 +19,12 @@ code {
 
 @layer components {
   .test {
-    @apply disabled:before:bg-gray-400 first-of-type:flex-1 last-of-type:flex-shrink-0 flex items-center first-of-type:gap-2 first-of-type:after:flex-1
-     before:bg-blue-700 before:rounded-full before:inline-flex before:p-3 before:text-white before:items-center before:justify-center before:w-4 before:h-4 before:relative after:w-32 after:border-t-2
-      after:border-gray-300 after:inline-block last-of-type:after:w-0 last-of-type:before:mr-2;
+    @apply disabled:before:bg-gray-400 first-of-type:flex-1 last-of-type:flex-shrink-0 flex items-center first-of-type:gap-1 sm:first-of-type:gap-2 sm:first-of-type:after:flex-1
+     before:bg-blue-700 before:rounded-full before:inline-flex before:p-2 sm:before:p-3 before:text-white before:items-center before:justify-center before:w-4 before:h-4 before:relative sm:after:w-32 sm:after:border-t-2
+      sm:after:border-gray-300 sm:after:inline-block last-of-type:sm:after:w-0 last-of-type:before:mr-2;
   }
   .form-input {
-    @apply border-b-2 block w-[48%] outline-none py-1 border-b-gray-300 hover:border-b-gray-500;
+    @apply border-b-2 block w-full sm:w-[48%] outline-none py-1 border-b-gray-300 hover:border-b-gray-500;
   }
 
   input[type="number"]::-webkit-inner-spin-button,
