@@ -88,6 +88,9 @@ const ShippingAddress = ({ checkoutToken, goToNext }) => {
         onSubmit={handleSubmit((data) =>
           goToNext({
             ...data,
+            shippingCountry,
+            shipppingSubdivision,
+            shippingOption,
           })
         )}
       >

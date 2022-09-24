@@ -3,7 +3,7 @@ import ShippingAddress from "./AddressForm";
 import { commerce } from "../../lib/commerce";
 import PaymentForm from "./PaymentForm";
 
-const Checkout = ({ cart }) => {
+const Checkout = ({ cart, onCaptureCheckout, order, error }) => {
   const steps = ["Shipping Address", "Payment details"];
   const [activeStep, setActiveStep] = useState(0);
   const [checkoutToken, setcheckoutToken] = useState(null);
@@ -17,23 +17,22 @@ const Checkout = ({ cart }) => {
         });
 
         setcheckoutToken(token);
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     generateToken();
   }, [cart]);
 
-  const nextStep = (prevStep) => setActiveStep(prevStep + 1);
-  const backStep = (prevStep) => {
-    setActiveStep(prevStep - 1);
-    console.log("clciked");
+  const nextStep = () => setActiveStep(activeStep + 1);
+  const backStep = () => {
+    setActiveStep(activeStep - 1);
   };
-
   const goToNext = (data) => {
     setShippingData(data);
     nextStep();
   };
-
   const Form = () =>
     activeStep === 0 ? (
       <ShippingAddress checkoutToken={checkoutToken} goToNext={goToNext} />
@@ -41,7 +40,9 @@ const Checkout = ({ cart }) => {
       <PaymentForm
         checkoutToken={checkoutToken}
         shippingData={shippingData}
+        nextStep={nextStep}
         backStep={backStep}
+        onCaptureCheckout={onCaptureCheckout}
       />
     );
 
@@ -56,7 +57,14 @@ const Checkout = ({ cart }) => {
             </button>
           ))}
         </div>
-        {activeStep === steps.length ? <p>Last</p> : checkoutToken && <Form />}
+        {activeStep === steps.length ? (
+          <div className="my-6 lg:text-2xl text-center">
+            <p>Thank you for shopping with us! </p>
+            <p>Come back next time.</p>
+          </div>
+        ) : (
+          checkoutToken && <Form />
+        )}
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ const Review = ({ checkoutToken }) => {
     <div>
       <h2 className="text-xl sm:text-2xl my-4 sm:my-6">Order Summary</h2>
       {checkoutToken.line_items.map((product) => (
-        <div className="my-4">
+        <div className="my-4" key={product.name}>
           <h3 className="sm:text-xl">{product.name}</h3>
           <div className="flex justify-between items-center">
             <span className="text-gray-400">Quantity: {product.quantity}</span>

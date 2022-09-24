@@ -2,18 +2,51 @@ import React, { useState } from "react";
 import Review from "./Review";
 import PaystackPop from "@paystack/inline-js";
 
-const PaymentForm = ({ checkoutToken, backStep }) => {
+const PaymentForm = ({
+  checkoutToken,
+  shippingData,
+  onCaptureCheckout,
+  backStep,
+  nextStep,
+}) => {
   const [email, setEmail] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
 
   const componentProps = {
     email,
     amount: checkoutToken.subtotal.raw * 100,
     key: process.env.REACT_APP_PAYSTACK_PUBLIC_KEY,
-    onSuccess: () =>
-      setSuccessMessage("Thanks for doing business with us! Come back soon!!"),
-    onError: (e) => console.log(e),
-    onClose: () => console.log("Wait! You need this oil, don't go!!!!"),
+  };
+  const handleSubmit = async () => {
+    try {
+      const orderData = {
+        line_items: checkoutToken.line_items,
+        customer: {
+          firsname: shippingData.firstName,
+          lastname: shippingData.lastName,
+          email: shippingData.email,
+        },
+        shipping: {
+          name: "Primary",
+          street: shippingData.address,
+          town_city: shippingData.city,
+          county_state: shippingData.shippingSubdivision,
+          postal_zip: shippingData.zip,
+          country: shippingData.shippingCountry,
+        },
+        fulfillment: { shipping_method: shippingData.shippingOption },
+        payment: {
+          gateway: "paystack",
+          paystack: {
+            reference: document.getElementById("paystackReference").value, // The returned Paytack reference id
+          },
+        },
+      };
+
+      onCaptureCheckout(checkoutToken.id, orderData);
+      nextStep();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -30,8 +63,8 @@ const PaymentForm = ({ checkoutToken, backStep }) => {
             type="email"
             placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
-            required
           />
+          <input type="hidden" id="paystackReference" />
           <div className="flex justify-between mt-8">
             <button
               className="uppercase border-slate-300 border rounded shadow py-2 px-4"
@@ -46,10 +79,10 @@ const PaymentForm = ({ checkoutToken, backStep }) => {
               onClick={() => {
                 const paystack = new PaystackPop();
                 paystack.newTransaction(componentProps);
+                handleSubmit();
               }}
-              disabled={!email}
             >
-              Pay ${checkoutToken.subtotal.formatted_with_symbol}
+              Pay {checkoutToken.subtotal.formatted_with_symbol}
             </button>
           </div>
         </form>
